@@ -11,7 +11,9 @@ fpsClock = pygame.time.Clock()
 width, height = 640, 480
 screen = pygame.display.set_mode((width, height))
  
-x, y = 320, 240
+x, y = 320, 450
+movingLeft = False
+movingRight = False
  
 # Game loop.
 while True:
@@ -25,10 +27,18 @@ while True:
       if event.key == K_UP:
         y -= 10
       if event.key == K_LEFT:
-        x -= 10
+        movingLeft = True
       if event.key == K_RIGHT:
-        x += 10
+        movingRight = True
+    if event.type == MOUSEMOTION:
+      x=event.pos[0]
+      y=event.pos[1]
+      print(event)
   # Update.
+  if movingLeft:
+   x -= 1
+  if movingRight:
+   x +=1
  
   # Draw.
   screen.fill((255, 255, 255))
@@ -38,6 +48,7 @@ while True:
     (x, y),
     20
   )
+
  
   pygame.display.flip()
   fpsClock.tick(fps)
